@@ -134,6 +134,9 @@ private:
 
         cv::resize(result, finalImage,Size(1536,1536));
 
+        this->Ks.clear();
+        this->Rs.clear();
+
         // send back the necessary transformation Matrices
         for (uint i = 0; i < cameras.size(); ++i) {
             this->Ks.push_back(cameras[i].K());
