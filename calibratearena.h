@@ -13,7 +13,6 @@
 #include <opencv2/stitching.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgcodecs.hpp>
-#include <opencv2/tracking.hpp>
 #include <opencv2/videoio.hpp>
 
 // allow easy addressing of OpenCV functions
