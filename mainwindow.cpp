@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->load_images, SIGNAL(clicked(bool)), this, SLOT(loadImages()));
     connect(ui->cap_images, SIGNAL(clicked(bool)), this, SLOT(capImages()));
+    connect(ui->save_images, SIGNAL(clicked(bool)), this, SLOT(saveImages()));
+
     connect(ui->extract_features,SIGNAL(clicked(bool)), &this->calibrater, SLOT(extractFeatures()));
     connect(ui->stitch_images,SIGNAL(clicked(bool)), &this->calibrater, SLOT(stitchImages()));
     connect(ui->square_arena,SIGNAL(clicked(bool)), &this->calibrater, SLOT(squareArena()));
@@ -96,7 +98,7 @@ void MainWindow::capImages()
 
     vector <Mat> imgs;
 
-    // try to open and load images from 4 cameras
+    // try to open and capture images from 4 cameras
     for (uint i = 0; i < 4; ++i) {
 
         cv::VideoCapture cap(i);
@@ -119,6 +121,51 @@ void MainWindow::capImages()
     this->calibrater.setCalibrationImages(imgs);
 
 }
+
+
+void MainWindow::saveImages()
+{
+    // Get the captured calibration images
+    vector <Mat>calibrationimages= this->calibrater.getCameraCalibrationImages();
+
+    // Check if the image were already/correctly captured
+    if( calibrationimages.size() == 4 ){
+
+            //Get the images name prefix
+            QString name_prefix= ui->lineEdit->text();
+
+            //Get the folder were the captured images will be saved
+            QSettings settings;
+            QString lastDir = settings.value("lastDir", QDir::homePath()).toString();
+            QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
+                                                            lastDir,
+                                                            QFileDialog::ShowDirsOnly
+                                                            | QFileDialog::DontResolveSymlinks);
+
+
+
+            //Specify the image compression params
+            vector <int> compression_params;
+            compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);
+            compression_params.push_back(95);
+
+            //Save the captured images one by one
+            for (uint i = 0; i < 4; ++i) {
+                imwrite(dir.toStdString()+"/"+name_prefix.toStdString()+to_string(i)+".jpg",calibrationimages[i],compression_params);
+            }
+
+            //Inform the user that the captured images were correctly saved
+            ui->error_label->setText("Calibration images saved!");
+    }
+
+    //Inform the user about a possible image capturing error
+    else ui->error_label->setText("The calibration images were not captured correctly!");
+}
+
+
+
+
+
 
 void MainWindow::matchConfDoubleConvertor(int val)
 {

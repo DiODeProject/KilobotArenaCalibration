@@ -127,6 +127,48 @@
        <string>Capture Calibration Images</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="save_images">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>90</y>
+        <width>211</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Save Calibration Images</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>150</y>
+        <width>211</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>130</y>
+        <width>191</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Images name prefix:</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="roi">
      <attribute name="title">
@@ -457,7 +499,7 @@
      <x>0</x>
      <y>0</y>
      <width>885</width>
-     <height>19</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

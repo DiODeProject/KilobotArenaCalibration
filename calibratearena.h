@@ -141,6 +141,13 @@ public slots:
      */
     void zoomMoveDone();
 
+    /*!
+     * \brief getCameraCalibrationImages
+     * Return the vector containing the calibration images
+     */
+     vector<Mat> getCameraCalibrationImages(){
+        return cameraCalibrationImages;
+    }
 
 private:
     // private members

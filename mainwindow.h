@@ -50,6 +50,12 @@ public slots:
      */
     void capImages();
 
+    /*!
+     * \brief save Images
+     * Method to save the captured calibration images
+     */
+    void saveImages();
+
 
 private:
     Ui::MainWindow *ui;
